@@ -26,5 +26,3 @@ def upload_file(ftp: ftplib.FTP, file_name: str, json_data)->bool:
     result = ftp.storbinary(f'STOR {file_name}', json_data)
     print(result)
     return result[:3]=='226'
-
-

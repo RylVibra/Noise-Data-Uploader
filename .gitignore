@@ -1,2 +1,3 @@
 .venv/*
+sensor_config.txt
 config.toml
