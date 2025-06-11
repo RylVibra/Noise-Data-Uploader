@@ -3,3 +3,4 @@ sensor_config.txt
 config.toml
 output*
 *.log*
+.setup.lock*
