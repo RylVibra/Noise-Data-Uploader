@@ -1,4 +1,4 @@
 .venv/*
 sensor_config.txt
 config.toml
-output.json
+output*
