@@ -2,5 +2,5 @@
 sensor_config.txt
 config.toml
 output*
-*.log*
+*.log
 .setup.lock*

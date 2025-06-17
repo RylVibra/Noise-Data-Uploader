@@ -35,5 +35,17 @@ if (!(Test-Path $mutexFile)) {
     & "$venvPath\Scripts\Activate.ps1"
 }
 
-# Run programs in order
-python sigicom_noise_uploader.py
+# Specify the path to the Python script
+$pythonScript = "sigicom_noise_uploader.py"
+
+# Start the Python script and wait for it to complete
+$process = Start-Process python.exe -ArgumentList $pythonScript -Wait
+
+# Check the exit code
+if ($process.ExitCode -eq 0) {
+    Write-Host "Python script finished successfully."
+} else {
+    Write-Host "Python script failed. Check Logs."
+    Write-Host "ERROR"
+    Start-Sleep -Seconds 20
+}

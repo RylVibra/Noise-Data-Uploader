@@ -6,22 +6,8 @@ import ftplib
 import json
 import toml
 import time
+import sys
 import io
-
-#### Config ####
-config = toml.load("config.toml")
-api_endpoint = config['api_endpoint']
-
-FTP_HOST = config['host']['ftp_url']
-username = config['host']['username']
-
-sigicom_api_url = api_endpoint['url']
-user_id = api_endpoint['user_id']
-user_token = api_endpoint['user_token']
-device_id = api_endpoint['device_id'] # Depracted and pull from txt file later
-
-header = {"accept":"application/json"}
-#### /Config ####
 
 
 #### Logging ####
@@ -36,6 +22,26 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 #### /Logging ####
+    
+
+#### Config ####
+# def load_config(path='config.toml')
+try:
+    config = toml.load("asdf.toml")
+    FTP_HOST = config['host']['ftp_url']
+    username = config['host']['username']
+
+    api_endpoint = config['api_endpoint']
+    sigicom_api_url = api_endpoint['url']
+    user_id = api_endpoint['user_id']
+    user_token = api_endpoint['user_token']
+    device_id = api_endpoint['device_id'] # TODO: Deprecate it and pull from txt file later
+    
+    header = {"accept":"application/json"}
+except (TypeError, FileNotFoundError, toml.TomlDecodeError) as e:
+    logger.error(e)
+    sys.exit(1)
+#### /Config ####
 
 
 def call_data_from_sigicom(data_url:str):
@@ -126,5 +132,13 @@ def main():
             logger.info(f"{result}Finished")
             # time.sleep(10)
 
+    
+    
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        sys.exit(0)
+    except Exception as e:
+        # Optional: log the error
+        logger.error(e)
+        sys.exit(1)
