@@ -39,7 +39,7 @@ if (!(Test-Path $mutexFile)) {
 $pythonScript = "sigicom_noise_uploader.py"
 
 # Start the Python script and wait for it to complete
-$process = Start-Process python.exe -ArgumentList $pythonScript -Wait
+$process = Start-Process python.exe -ArgumentList $pythonScript -Wait -PassThru
 
 # Check the exit code
 if ($process.ExitCode -eq 0) {
