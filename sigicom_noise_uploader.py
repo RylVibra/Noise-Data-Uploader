@@ -25,9 +25,8 @@ logger.addHandler(handler)
     
 
 #### Config ####
-# def load_config(path='config.toml')
 try:
-    config = toml.load("asdf.toml")
+    config = toml.load("config.toml")
     FTP_HOST = config['host']['ftp_url']
     username = config['host']['username']
 
